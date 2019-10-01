@@ -5,6 +5,7 @@ import GoogleMapReact from "google-map-react"
 import "./google-map.scss"
 import  "./food-truck-list.scss"
 import {secrets} from "../../secrets"
+import FoodTruckListItem from "./food-truck-list-item/food-truck-list-item";
 
 class FoodTruckList extends Component {
 
@@ -12,13 +13,6 @@ class FoodTruckList extends Component {
     return false;
   }
   render() {
-    function importAll(r) {
-      let images = {};
-      r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-      return images;
-    }
-
-    const images = importAll(require.context('../../img', false, /\.(png|jpe?g|svg)$/));
 
     {/*<img src={images['doggy.png']} />*/}
 
@@ -29,22 +23,18 @@ class FoodTruckList extends Component {
       },
       zoom: 17
     };
+
     console.log("render list");
-    let arr = [{name:"Snake Hill",description:"sausages",image:"snake-hill.jpg","distance" :.1},
+    let foodTruckArray = [{name:"Snake Hill",description:"sausages",image:"snake-hill.jpg","distance" :.1},
       {name:"Kommie Pig",description:"BBQ by commies",image:"kommie-pig.jpg","distance" :.2},
       {name:"Mexican on The Run",description:"Mexican food",image:"mexican-on-the-run.jpg","distance" :.3}];
-    let listItems = arr.map((truck, index) => {
-      return (
-        <div
-          key={index}
-          onClick={this.goToItem.bind(this)}
-          className={"list-group-item list-group-item-action"}
-        >
 
-          <img src={images[truck.image]} className="food-truck-img rounded-circle" alt={truck.name}/>{truck.name}<small>{truck.distance} miles</small>
-        </div>
-      );
+
+    let listItems = foodTruckArray.map((truck, index) => {
+      return (<FoodTruckListItem index={index} foodTruck={truck} history={this.props.history}></FoodTruckListItem>)
     });
+
+
     return <div className="transition-item list-page">
       <div className={"map-container"}>
         <GoogleMapReact
@@ -62,11 +52,7 @@ class FoodTruckList extends Component {
     </div>;
   }
 
-  goToItem() {
-    this.props.history.push({
-      pathname: "/item"
-    });
-  }
+
 }
 
 export default FoodTruckList;
