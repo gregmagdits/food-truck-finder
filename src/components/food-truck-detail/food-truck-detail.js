@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import * as ReactDOM from "react-dom";
-import randomColor from "randomcolor";
 
-class Item extends Component {
+class FoodTruckDetail extends Component {
 
   constructor(props){
     super(props)
@@ -29,4 +28,4 @@ class Item extends Component {
   }
 }
 
-export default Item;
+export default FoodTruckDetail;

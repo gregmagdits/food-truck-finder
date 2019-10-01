@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import PageTransition from "react-router-page-transition";
 
-import List from "./list";
-import Item from "./item";
+import FoodTruckList from "./components/food-truck-list/food-truck-list";
+import FoodTruckDetail from "./components/food-truck-detail/food-truck-detail";
+import './page-slide-transition.css';
 
 class App extends Component {
   // constructor(props) {
@@ -18,9 +19,9 @@ class App extends Component {
           render={({ location }) => (
             <PageTransition timeout={500}>
               <Switch location={location}>
-                <Route exact path="/" component={List} />
+                <Route exact path="/" component={FoodTruckList} />
                 {/* <Route path="/list" component={List}/> */}
-                <Route path="/item" component={Item} />
+                <Route path="/item" component={FoodTruckDetail} />
               </Switch>
             </PageTransition>
           )}

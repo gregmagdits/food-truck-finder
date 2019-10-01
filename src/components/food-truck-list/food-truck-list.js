@@ -3,10 +3,10 @@ import * as ReactDOM from "react-dom";
 import randomColor from "randomcolor";
 import GoogleMapReact from "google-map-react"
 import "./google-map.scss"
-import "./item.scss"
-import {secrets} from "./secrets"
+import  "./food-truck-list.scss"
+import {secrets} from "../../secrets"
 
-class List extends Component {
+class FoodTruckList extends Component {
 
   shouldComponentUpdate() {
     return false;
@@ -18,7 +18,7 @@ class List extends Component {
       return images;
     }
 
-    const images = importAll(require.context('./img', false, /\.(png|jpe?g|svg)$/));
+    const images = importAll(require.context('../../img', false, /\.(png|jpe?g|svg)$/));
 
     {/*<img src={images['doggy.png']} />*/}
 
@@ -69,4 +69,4 @@ class List extends Component {
   }
 }
 
-export default List;
+export default FoodTruckList;
