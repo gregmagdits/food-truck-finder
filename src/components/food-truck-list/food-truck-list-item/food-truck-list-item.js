@@ -30,15 +30,15 @@ class FoodTruckListItem extends Component {
                 onClick={this.goToItem.bind(this)}
                 className={"list-group-item list-group-item-action"}
             >
-
                 <img src={this.images[this.props.foodTruck.image]} className="food-truck-img rounded-circle" alt={this.props.foodTruck.name}/>{this.props.foodTruck.name}<small>{this.props.foodTruck.distance} miles</small>
             </div>
         );
 
     }
     goToItem() {
+
         this.props.history.push({
-            pathname: "/item"
+            pathname: `/food-trucks/${this.props.foodTruck.name}`
         });
     }
 }

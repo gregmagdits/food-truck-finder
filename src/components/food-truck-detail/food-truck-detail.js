@@ -16,7 +16,7 @@ class FoodTruckDetail extends Component {
       <div className="transition-item detail-page">
         <div onClick={this.goBack.bind(this)}>
           <p style={{ padding: 10 }}>
-            Snake Hill- Its a great place.
+            {this.props.truck.name} is fucking great!
           </p>
         </div>
       </div>
