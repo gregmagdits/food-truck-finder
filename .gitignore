@@ -24,3 +24,4 @@ yarn-error.log*
 
 .idea/
 secrets.js
+aws-access-keys.json
