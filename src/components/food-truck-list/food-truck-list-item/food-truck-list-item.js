@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import * as ReactDOM from "react-dom";
-import randomColor from "randomcolor";
-import GoogleMapReact from "google-map-react"
 import "../google-map.scss"
 import  "../food-truck-list.scss"
-import {secrets} from "../../../secrets"
 
 class FoodTruckListItem extends Component {
 
@@ -15,7 +11,7 @@ class FoodTruckListItem extends Component {
 
         function _importAll(r) {
             let images = {};
-            r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+            r.keys().map((item, index) => { return images[item.replace('./', '')] = r(item); });
             return images;
         }
     }
@@ -28,7 +24,7 @@ class FoodTruckListItem extends Component {
                 onClick={this.goToItem.bind(this)}
                 className={"list-group-item list-group-item-action"}
             >
-                <img src={this.images[this.props.foodTruck.image]} className="food-truck-img rounded-circle" alt={this.props.foodTruck.name}/>{this.props.foodTruck.name}{/*<small>{this.props.foodTruck.distance} miles</small>*/}
+                <img src={this.props.foodTruck.photo} className="food-truck-img rounded-circle" alt={this.props.foodTruck.name}/>{this.props.foodTruck.name}{/*<small>{this.props.foodTruck.distance} miles</small>*/}
             </div>
         );
 

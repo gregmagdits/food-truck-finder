@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import * as ReactDOM from "react-dom";
 
 class FoodTruckDetail extends Component {
 
@@ -15,7 +14,8 @@ class FoodTruckDetail extends Component {
       <div className="transition-item detail-page">
         <div onClick={this.goBack.bind(this)}>
           <p style={{ padding: 10 }}>
-            {this.props.truck.name} is fucking great!
+            {this.props.truck.name}
+            {this.props.truck.description}
           </p>
         </div>
       </div>
