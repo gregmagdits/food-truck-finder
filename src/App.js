@@ -7,6 +7,7 @@ import FoodTruckDetail from "./components/food-truck-detail/food-truck-detail";
 import './page-slide-transition.css';
 import FoodTruckListItem from "./components/food-truck-list/food-truck-list-item/food-truck-list-item";
 import config from "./config"
+import FoodTruckService from "./services/FoodTruckService";
 
 class App extends Component {
   constructor(props) {
@@ -16,16 +17,13 @@ class App extends Component {
           isLoaded: false,
           foodTrucks: []
       };
+      this.service = new FoodTruckService();
   }
   componentDidMount() {
       //https://reactjs.org/docs/faq-ajax.html
-    fetch(`${config.api_base}/`)
-        .then(res => {
-            return res.json();
-        })
-        .then((data) => {
+      this.service.getAllFoodTrucks().then((data) => {
             console.log(`response was ${JSON.stringify(data)}`)
-            this.setState({ foodTrucks: data.body, isLoaded: true })
+            this.setState({ foodTrucks: data, isLoaded: true })
         })
         .catch((error) =>{
             this.setState({ error: error, isLoaded: true })
@@ -35,18 +33,22 @@ class App extends Component {
   render() {
     const ListRenderFunc = (props) => {
         console.log(this.state.foodTruckArray);
+        if (!this.state.isLoaded) {
+            console.log('rendering null')
+            return (<div></div>);
+        }
         return (
           <FoodTruckList {...props} foodTruckArray={this.state.foodTrucks} history={props.history}/>
         );
     }
     const TruckRenderFunc = (props) => {
-        let selectedTruck = this.foodTruckArray.find(truck => {
+        let selectedTruck = this.state.foodTrucks.find(truck => {
             let part = props.match.params.foodTruckName;
-            return part == truck.name;
+            return part === truck.name;
         });
-        console.log(`selected truck is ${JSON.stringify(selectedTruck)}`)
+        console.log(`selected truck is: `, selectedTruck)
         return (
-          <FoodTruckDetail {...props} history={props.history} truck={selectedTruck}/>
+          <FoodTruckDetail {...props} history={props.history} foodTruck={selectedTruck}/>
         );
     }
     return (
