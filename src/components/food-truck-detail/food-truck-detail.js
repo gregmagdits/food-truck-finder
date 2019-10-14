@@ -11,7 +11,6 @@ class FoodTruckDetail extends Component {
     return false;
   }
   render() {
-    console.log("render item");
     return (
       <div className="transition-item detail-page">
         <div onClick={this.goBack.bind(this)}>

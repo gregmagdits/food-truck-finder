@@ -6,29 +6,40 @@ import FoodTruckList from "./components/food-truck-list/food-truck-list";
 import FoodTruckDetail from "./components/food-truck-detail/food-truck-detail";
 import './page-slide-transition.css';
 import FoodTruckListItem from "./components/food-truck-list/food-truck-list-item/food-truck-list-item";
+import config from "./config"
 
 class App extends Component {
   constructor(props) {
     super(props);
-
-    // get from api call
-    this.foodTruckArray = [{name:"Snake Hill",description:"sausages",image:"snake-hill.jpg","distance" :.1},
-          {name:"Kommie Pig",description:"BBQ by commies",image:"kommie-pig.jpg","distance" :.2},
-          {name:"Mexican on The Run",description:"Mexican food",image:"mexican-on-the-run.jpg","distance" :.3}];
-
-    //this.state = {};
-
+      this.state = {
+          error: null,
+          isLoaded: false,
+          foodTrucks: []
+      };
+  }
+  componentDidMount() {
+      //https://reactjs.org/docs/faq-ajax.html
+    fetch(`${config.api_base}/`)
+        .then(res => {
+            return res.json();
+        })
+        .then((data) => {
+            console.log(`response was ${JSON.stringify(data)}`)
+            this.setState({ foodTrucks: data.body, isLoaded: true })
+        })
+        .catch((error) =>{
+            this.setState({ error: error, isLoaded: true })
+        })
   }
 
   render() {
     const ListRenderFunc = (props) => {
-        console.log(props);
+        console.log(this.state.foodTruckArray);
         return (
-          <FoodTruckList {...props} foodTruckArray={this.foodTruckArray} history={props.history}/>
+          <FoodTruckList {...props} foodTruckArray={this.state.foodTrucks} history={props.history}/>
         );
     }
     const TruckRenderFunc = (props) => {
-        console.log(props)
         let selectedTruck = this.foodTruckArray.find(truck => {
             let part = props.match.params.foodTruckName;
             return part == truck.name;
@@ -45,9 +56,6 @@ class App extends Component {
             <PageTransition timeout={500}>
               <Switch location={location}>
                   <Route exact path="/" render={ListRenderFunc}/>
-{/*                  <Route exact path="/"  >
-                      <FoodTruckList foodTruckArray={this.foodTruckArray} history={this.props.history}/>
-                  </Route>*/}
                   <Route path="/food-trucks/:foodTruckName" render={TruckRenderFunc} />
               </Switch>
             </PageTransition>

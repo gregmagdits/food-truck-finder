@@ -24,7 +24,6 @@ class FoodTruckList extends Component {
     return false;
   }
   render() {
-    console.log("render list");
     let listItems = this.props.foodTruckArray.map((truck, index) => {
       return (<FoodTruckListItem index={index} foodTruck={truck} history={this.props.history}></FoodTruckListItem>)
     });
