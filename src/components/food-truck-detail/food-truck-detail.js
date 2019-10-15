@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import * as ReactDOM from "react-dom";
+import FoodTruckFoodItem from "../food-truck-food-item/food-truck-food-item";
 
 class FoodTruckDetail extends Component {
 
@@ -17,6 +18,9 @@ class FoodTruckDetail extends Component {
       console.log('Loading ')
       return <div className="transition-item detail-page">Loading...</div>;
     }
+    let foodItems = this.state.foodTruck.foodItems.map(item =>{
+      return (   <FoodTruckFoodItem item={item}/>   );
+    })
     return (
       <div className="transition-item detail-page">
         <div onClick={this.goBack.bind(this)}>
@@ -27,6 +31,7 @@ class FoodTruckDetail extends Component {
         <div>
           {this.state.foodTruck.description}
         </div>
+        {foodItems}
       </div>
     );
   }

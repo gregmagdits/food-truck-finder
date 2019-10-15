@@ -1,4 +1,4 @@
 const config = {
-    api_base : 'http://54.167.10.231:8080'
+    api_base : 'http://3.229.202.80:8080'
 }
 export default config;
