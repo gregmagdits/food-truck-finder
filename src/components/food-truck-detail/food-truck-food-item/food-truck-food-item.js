@@ -22,7 +22,7 @@ class FoodTruckFoodItem extends Component {
             button = ( "like this");
         }
         let reviewLink = (
-            <button onClick={this.goToReview.bind(this)}></button>
+            <button onClick={this.goToReview.bind(this)}>reviews</button>
         );
         return (
             <div>

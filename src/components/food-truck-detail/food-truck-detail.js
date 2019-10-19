@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import FoodTruckFoodItem from "../food-truck-food-item/food-truck-food-item";
+import FoodTruckFoodItem from "./food-truck-food-item/food-truck-food-item";
 import "./food-truck-detail.scss"
 
 class FoodTruckDetail extends Component {
