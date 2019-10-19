@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./food-truck-food-item.scss"
 
 class FoodTruckFoodItem extends Component {
     constructor(props){
@@ -6,6 +7,7 @@ class FoodTruckFoodItem extends Component {
         this.state = {
             item : props.item
         }
+        console.log("item: ", this.state.item)
     }
 
 

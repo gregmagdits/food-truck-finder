@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-import * as ReactDOM from "react-dom";
-import randomColor from "randomcolor";
 import GoogleMapReact from "google-map-react"
 import "./google-map.scss"
 import  "./food-truck-list.scss"

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import * as ReactDOM from "react-dom";
 import FoodTruckFoodItem from "../food-truck-food-item/food-truck-food-item";
+import "./food-truck-detail.scss"
 
 class FoodTruckDetail extends Component {
 

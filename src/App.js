@@ -4,10 +4,9 @@ import PageTransition from "react-router-page-transition";
 
 import FoodTruckList from "./components/food-truck-list/food-truck-list";
 import FoodTruckDetail from "./components/food-truck-detail/food-truck-detail";
-import './page-slide-transition.css';
-import FoodTruckListItem from "./components/food-truck-list/food-truck-list-item/food-truck-list-item";
-import config from "./config"
+import './css/main.scss';
 import FoodTruckService from "./services/FoodTruckService";
+import FoodTruckReviews from "./components/food-truck-reviews/food-truck-reviews";
 
 class App extends Component {
   constructor(props) {

@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
-import './main.css';
 import {secrets} from "./secrets"
 import Amplify from 'aws-amplify';
 

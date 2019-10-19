@@ -1,4 +1,6 @@
 /* Down arrows on accordions*/
+@import '../../css/main';
+
 .card .card-header:after {
   /* symbol for "opening" panels */
   font-family: 'Glyphicons Halflings';  /* essential for enabling glyphicon */
@@ -24,4 +26,8 @@
 .food-truck-img{
   max-width: 15%;
   max-height: 20%;
+}
+
+.list-page {
+  @extend .base-page
 }

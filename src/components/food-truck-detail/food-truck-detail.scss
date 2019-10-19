@@ -1,0 +1,8 @@
+@import '../../css/main';
+
+.detail-page {
+  @extend .base-page;
+  .food-items-container {
+    margin-top: 3em;
+  }
+}
