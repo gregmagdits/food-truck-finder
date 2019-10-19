@@ -27,3 +27,4 @@ secrets.js
 aws-access-keys.json
 *.map
 *.css
+/dist/

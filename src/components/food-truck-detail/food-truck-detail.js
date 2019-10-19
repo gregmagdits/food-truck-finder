@@ -9,7 +9,8 @@ class FoodTruckDetail extends Component {
     console.log('foodtruckdetail const: ',props)
     this.state = {
       foodTruck: props.foodTruck,
-      isLoaded : props.foodTruck ? true : false
+      isLoaded : props.foodTruck ? true : false,
+      history: props.history
     }
   }
 
@@ -19,7 +20,7 @@ class FoodTruckDetail extends Component {
       return <div className="transition-item detail-page">Loading...</div>;
     }
     let foodItems = this.state.foodTruck.foodItems.map(item =>{
-      return (   <FoodTruckFoodItem item={item}/>   );
+      return (   <FoodTruckFoodItem item={item} history={this.state.history} match={this.props.match}/>   );
     })
     return (
       <div className="transition-item detail-page">
@@ -31,12 +32,16 @@ class FoodTruckDetail extends Component {
         <div>
           {this.state.foodTruck.description}
         </div>
-        {foodItems}
+        <div className="food-items-container">
+          {foodItems}
+        </div>
+
       </div>
     );
   }
 
-  goBack() {
+  goBack(e) {
+    e.preventDefault();
     this.props.history.goBack();
   }
 }

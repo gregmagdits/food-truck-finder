@@ -43,7 +43,8 @@ class FoodTruckReviews extends Component{
         );
     }
 
-    goBack() {
+    goBack(e) {
+        e.preventDefault();
         this.props.history.goBack();
     }
 }
