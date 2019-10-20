@@ -4,7 +4,7 @@ import PageTransition from "react-router-page-transition";
 
 import FoodTruckList from "./components/food-truck-list/food-truck-list";
 import FoodTruckDetail from "./components/food-truck-detail/food-truck-detail";
-import './css/main.scss';
+import '../css/main.scss';
 import FoodTruckService from "./services/FoodTruckService";
 import FoodTruckReviews from "./components/food-truck-reviews/food-truck-reviews";
 import FoodItemReviews from "./components/food-truck-detail/food-truck-food-item/food-item-reviews/food-item-reviews";
