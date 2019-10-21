@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import App from './js/App';
 import {secrets} from "./js/secrets"
 import Amplify from 'aws-amplify';
+import { Provider } from 'react-redux'
+import store from './js/redux/store'
 
 
 Amplify.configure({
@@ -13,4 +15,8 @@ Amplify.configure({
         userPoolWebClientId : secrets.cognito.APP_CLIENT_ID
     }
 });
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(
+    <Provider store={store}>
+        <App />
+    </Provider>,
+    document.getElementById('root'));

@@ -1,7 +1,6 @@
-const initialState = {
-    articles: []
-};
-function rootReducer(state = initialState, action) {
-    return state;
-};
-export default rootReducer;
+import { combineReducers } from 'redux'
+import session from './session'
+
+export default combineReducers({
+    session
+})

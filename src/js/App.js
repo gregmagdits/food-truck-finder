@@ -8,6 +8,7 @@ import '../css/main.scss';
 import FoodTruckService from "./services/FoodTruckService";
 import FoodTruckReviews from "./components/food-truck-reviews/food-truck-reviews";
 import FoodItemReviews from "./components/food-truck-detail/food-truck-food-item/food-item-reviews/food-item-reviews";
+import Callback from "./components/callback/callback"
 
 class App extends Component {
   constructor(props) {
@@ -97,6 +98,7 @@ class App extends Component {
                   <Route  path="/food-trucks/:foodTruckName/food/:foodItemId/reviews" render={_me.FoodItemReviewRenderFunc.bind(_me)} />
                   <Route  path="/food-trucks/:foodTruckName/reviews" render={_me.TruckReviewRenderFunc.bind(_me)} />
                   <Route  path="/food-trucks/:foodTruckName" render={_me.TruckRenderFunc.bind(_me)} />
+                  <Route exact path="/callback" component={Callback}/>
               </Switch>
             </PageTransition>
           )}
