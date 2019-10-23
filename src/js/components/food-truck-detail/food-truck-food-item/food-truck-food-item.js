@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import "./food-truck-food-item.scss"
+import { withRouter } from 'react-router-dom'
 
 class FoodTruckFoodItem extends Component {
     constructor(props){
@@ -42,4 +43,4 @@ class FoodTruckFoodItem extends Component {
     }
 }
 
-export default FoodTruckFoodItem;
+export default withRouter(FoodTruckFoodItem);

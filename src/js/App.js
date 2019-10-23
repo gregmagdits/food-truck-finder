@@ -52,7 +52,7 @@ class App extends Component {
       let selectedTruck = this.getSelectedTruck(props);
       console.log(`selected truck is: `, selectedTruck)
       return (
-          <FoodTruckReviews {...props} history={props.history} foodTruck={selectedTruck}/>
+          <FoodTruckReviews {...props} foodTruck={selectedTruck}/>
       );
   }
 
@@ -60,7 +60,7 @@ class App extends Component {
         let selectedTruck = this.getSelectedTruck(props);
         console.log(`selected truck is: `, selectedTruck)
         return (
-            <FoodTruckDetail {...props} history={props.history} foodTruck={selectedTruck}/>
+            <FoodTruckDetail {...props}  foodTruck={selectedTruck}/>
         );
     }
     ListRenderFunc(props){
@@ -70,7 +70,7 @@ class App extends Component {
             return (<div></div>);
         }
         return (
-            <FoodTruckList {...props} foodTruckArray={this.state.foodTrucks} history={props.history}/>
+            <FoodTruckList {...props} foodTruckArray={this.state.foodTrucks}/>
         );
     }
     FoodItemReviewRenderFunc(props){
@@ -81,7 +81,7 @@ class App extends Component {
         console.log("selected food item: ", selectedFoodItem);
         let selectedFoodTruck = this.getSelectedTruck(props);
         return (
-            <FoodItemReviews {...props} foodTruck={selectedFoodTruck} foodItem={selectedFoodItem} history={props.history}/>
+            <FoodItemReviews {...props} foodTruck={selectedFoodTruck} foodItem={selectedFoodItem} />
         );
 
     }

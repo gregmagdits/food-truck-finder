@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import "../google-map.scss"
 import  "../food-truck-list.scss"
+import { withRouter } from 'react-router-dom';
 
 class FoodTruckListItem extends Component {
 
@@ -42,4 +43,4 @@ class FoodTruckListItem extends Component {
     }
 }
 
-export default FoodTruckListItem;
+export default withRouter(FoodTruckListItem);

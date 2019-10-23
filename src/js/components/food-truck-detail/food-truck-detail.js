@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import FoodTruckFoodItem from "./food-truck-food-item/food-truck-food-item";
 import "./food-truck-detail.scss"
+import { withRouter } from 'react-router-dom'
 
 class FoodTruckDetail extends Component {
 
@@ -9,8 +10,7 @@ class FoodTruckDetail extends Component {
     console.log('foodtruckdetail const: ',props)
     this.state = {
       foodTruck: props.foodTruck,
-      isLoaded : props.foodTruck ? true : false,
-      history: props.history
+      isLoaded : props.foodTruck ? true : false
     }
   }
 
@@ -20,7 +20,7 @@ class FoodTruckDetail extends Component {
       return <div className="transition-item detail-page">Loading...</div>;
     }
     let foodItems = this.state.foodTruck.foodItems.map(item =>{
-      return (   <FoodTruckFoodItem item={item} history={this.state.history} match={this.props.match}/>   );
+      return (   <FoodTruckFoodItem item={item} />   );
     })
     return (
       <div className="transition-item detail-page">
@@ -46,4 +46,4 @@ class FoodTruckDetail extends Component {
   }
 }
 
-export default FoodTruckDetail;
+export default withRouter(FoodTruckDetail);
