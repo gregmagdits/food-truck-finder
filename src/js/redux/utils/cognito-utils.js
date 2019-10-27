@@ -4,47 +4,24 @@ import { config as AWSConfig } from 'aws-sdk'
 import appConfig from '../../config'
 
 AWSConfig.region = appConfig.region
-
-// Creates a CognitoAuth instance
-const createCognitoAuth = () => {
-    const appWebDomain = appConfig.userPoolBaseUri.replace('https://', '').replace('http://', '')
-    const auth = new CognitoAuth({
-        UserPoolId: appConfig.userPool,
-        ClientId: appConfig.clientId,
-        AppWebDomain: appWebDomain,
-        TokenScopesArray: appConfig.tokenScopes,
-        RedirectUriSignIn: appConfig.callbackUri,
-        RedirectUriSignOut: appConfig.signoutUri
-    })
-    return auth
-}
-
-// Creates a CognitoUser instance
-const createCognitoUser = () => {
-    const pool = createCognitoUserPool()
-    return pool.getCurrentUser()
-}
-
-// Creates a CognitoUserPool instance
-const createCognitoUserPool = () => new CognitoUserPool({
-    UserPoolId: appConfig.userPool,
-    ClientId: appConfig.clientId
-})
-
-// Get the URI of the hosted sign in screen
-const getCognitoSignInUri = () => {
-    const signinUri = `${appConfig.userPoolBaseUri}/login?response_type=code&client_id=${appConfig.clientId}&redirect_uri=${appConfig.callbackUri}`
-    return signinUri
-}
-
+// top of hierarchy
 // Parse the response from a Cognito callback URI (assumed a token or code is in the supplied href). Returns a promise.
 const parseCognitoWebResponse = (href) => {
     return new Promise((resolve, reject) => {
-        const auth = createCognitoAuth()
+        const appWebDomain = appConfig.userPoolBaseUri.replace('https://', '').replace('http://', '')
+        const auth = new CognitoAuth({
+            UserPoolId: appConfig.userPool,
+            ClientId: appConfig.clientId,
+            AppWebDomain: appWebDomain,
+            TokenScopesArray: appConfig.tokenScopes,
+            RedirectUriSignIn: appConfig.callbackUri,
+            RedirectUriSignOut: appConfig.signoutUri
+        })
 
         // userHandler will trigger the promise
         auth.userhandler = {
             onSuccess: function (result) {
+                console.log('result is: ', result)
                 resolve(result)
             },
             onFailure: function (err) {
@@ -55,10 +32,15 @@ const parseCognitoWebResponse = (href) => {
     })
 }
 
+// top of hierarchy
 // Gets a new Cognito session. Returns a promise.
 const getCognitoSession = () => {
     return new Promise((resolve, reject) => {
-        const cognitoUser = createCognitoUser()
+        const pool = new CognitoUserPool({
+            UserPoolId: appConfig.userPool,
+            ClientId: appConfig.clientId
+        });
+        const cognitoUser = pool.getCurrentUser()
         cognitoUser.getSession((err, result) => {
             if (err || !result) {
                 reject(new Error('Failure getting Cognito session: ' + err))
@@ -83,16 +65,27 @@ const getCognitoSession = () => {
     })
 }
 
+// Get the URI of the hosted sign in screen
+const getCognitoSignInUri = () => {
+    const signinUri = `${appConfig.userPoolBaseUri}/login?response_type=code&client_id=${appConfig.clientId}&redirect_uri=${appConfig.callbackUri}`
+    return signinUri
+}
+
 // Sign out of the current session (will redirect to signout URI)
 const signOutCognitoSession = () => {
-    const auth = createCognitoAuth()
+    const appWebDomain = appConfig.userPoolBaseUri.replace('https://', '').replace('http://', '')
+    const auth = new CognitoAuth({
+        UserPoolId: appConfig.userPool,
+        ClientId: appConfig.clientId,
+        AppWebDomain: appWebDomain,
+        TokenScopesArray: appConfig.tokenScopes,
+        RedirectUriSignIn: appConfig.callbackUri,
+        RedirectUriSignOut: appConfig.signoutUri
+    })
     auth.signOut()
 }
 
 export default {
-    createCognitoAuth,
-    createCognitoUser,
-    createCognitoUserPool,
     getCognitoSession,
     getCognitoSignInUri,
     parseCognitoWebResponse,
