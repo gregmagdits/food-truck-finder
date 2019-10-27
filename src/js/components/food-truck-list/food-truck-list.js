@@ -32,9 +32,7 @@ class FoodTruckList extends Component {
             <GoogleMapReact
                 bootstrapURLKeys={{ key: secrets.google.maps_api_key }}
                 defaultCenter={this.defaultMapProps.center}
-                defaultZoom={this.defaultMapProps.zoom}
-            >
-            </GoogleMapReact>
+                defaultZoom={this.defaultMapProps.zoom} />
           </div>
           <div className={"list-group"}>
             {listItems}

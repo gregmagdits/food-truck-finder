@@ -15,7 +15,8 @@ export default class FoodTruckService {
                 return res.json();
             })
             .catch((error) =>{
-                this.setState({ error: error, isLoaded: true })
+                //TODO  - FIGURE OUT HOW TO HANDLE THE REJECTION!
+                Promise.reject(error);
             })
     }
 
@@ -25,7 +26,29 @@ export default class FoodTruckService {
                 return res.json();
             })
             .catch((error) =>{
-                this.setState({ error: error, isLoaded: true })
+                //TODO  - FIGURE OUT HOW TO HANDLE THE REJECTION!
+                Promise.reject(error);
             })
+    }
+
+    leaveFoodTruckReview(user, truck, rating, review){
+        return fetch(`${config.api_base}/food-trucks/${truck.name}/reviews`,
+    {
+          method: 'POST',
+          // not sure if we need the string
+          body: JSON.stringify({
+              rating: rating,
+              review: review
+          }),
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }).then(res => {
+            return res.json();
+        })
+        .catch((error) =>{
+            //TODO  - FIGURE OUT HOW TO HANDLE THE REJECTION!
+            Promise.reject(error);
+        })
     }
 }
