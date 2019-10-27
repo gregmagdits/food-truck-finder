@@ -64,7 +64,6 @@ class App extends Component {
         );
     }
     ListRenderFunc(props){
-        console.log(this.state.foodTruckArray);
         if (!this.state.isLoaded) {
             console.log('rendering null')
             return (<div></div>);

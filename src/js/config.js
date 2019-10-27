@@ -1,16 +1,15 @@
 const config = {
     api_base : 'http://3.229.202.80:8080',
-    "region": "eu-west-2",
-    "userPool": "eu-west-2_z1Go5XdrZ",
+    "region": "us-east-1",
+    "userPool": "us-east-1_MoQZph5Gu",
     "userPoolBaseUri": "https://food-truck-finder.auth.us-east-1.amazoncognito.com",
     "clientId": "6grerrv1pj4k3pv8a4fkrqagcn",
-    "callbackUri": "http://localhost:3000/callback",
+    "callbackUri": "http://localhost:3000/",
     "signoutUri": "http://localhost:3000",
     "tokenScopes": [
         "openid",
         "email",
-        "profile",
-        "http://cognito-demo-api.arronharden.com/hello-world.all"
+        "profile"
     ],
     "apiUri": "http://cognito-demo-api.arronharden.com"
 }

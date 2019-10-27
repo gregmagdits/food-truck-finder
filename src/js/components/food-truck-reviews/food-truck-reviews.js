@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import "./food-truck-reviews.scss"
-import GoogleMapReact from "google-map-react";
-import {secrets} from "../../secrets";
 
 class FoodTruckReviews extends Component{
 

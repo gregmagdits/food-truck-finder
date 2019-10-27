@@ -11,7 +11,7 @@ export function initSessionFromCallbackURI (callbackHref) {
         return cognitoUtils.parseCognitoWebResponse(callbackHref) // parse the callback URL
             .then(() => cognitoUtils.getCognitoSession()) // get a new session
             .then((session) => {
-                dispatch({ type: SET_SESSION, session })
+                dispatch(setSession(session))
             })
     }
 }
@@ -20,3 +20,9 @@ export const setSession = session => ({
     type: SET_SESSION,
     session
 })
+
+export const dispatchSession = session => {
+    return function (dispatch) {
+        dispatch(setSession(session))
+    }
+}

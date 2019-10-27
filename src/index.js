@@ -1,11 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './js/App';
-import {secrets} from "./js/secrets"
 import Amplify from 'aws-amplify';
 import { Provider } from 'react-redux'
 import store from './js/redux/store'
-
+import {secrets} from "./secrets";
 
 Amplify.configure({
     Auth: {
