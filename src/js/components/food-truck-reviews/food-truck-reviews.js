@@ -3,7 +3,6 @@ import "./food-truck-reviews.scss"
 import FoodTruckService from "../../services/FoodTruckService";
 import {connect} from 'react-redux'
 import appConfig from "../../config";
-import CognitoService from "../../services/CognitoService";
 
 function mapStateToProps (state) {
     return { session: state.session }
@@ -25,7 +24,7 @@ class FoodTruckReviews extends Component{
         this.service = new FoodTruckService();
         if (window.location.search.indexOf('callback') > 0){
             var urlParams = new URLSearchParams(window.location.search);
-            this[urlParams.get('callback')].apply(urlParams.getAll('params'))
+            this[urlParams.get('callback')].bind(this).apply(urlParams.getAll('params'))
         }
     }
 
@@ -71,7 +70,10 @@ class FoodTruckReviews extends Component{
     }
 
     leaveReview(e){
-        e.preventDefault();
+        if (e){
+            e.preventDefault();
+        }
+
         if (!this.props.session.isLoggedIn){
             //new CognitoService().login(`${window.location.href}`, 'leaveReview', [])
             this.props.history.push({

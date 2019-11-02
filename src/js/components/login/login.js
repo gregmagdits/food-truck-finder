@@ -27,14 +27,15 @@ class Login extends Component{
         super(props)
         console.log('props: ', props)
     }
-    componentDidMount() {
-
-    }
-
     render() {
-        window.localStorage.setItem('targetUri', `${this.props.targetUri}`);
-        window.localStorage.setItem('callback', `${this.props.callback}`);
-        window.localStorage.setItem('params', `${this.props.params}`);
+        var urlParams = new URLSearchParams(window.location.search);
+        let targetUri = urlParams.get('targetUri');
+        let callback = urlParams.get('callback');
+        let params = urlParams.get('params');
+
+        window.localStorage.setItem('targetUri',targetUri);
+        window.localStorage.setItem('callback', callback);
+        window.localStorage.setItem('params', params);
 
         const appWebDomain = appConfig.userPoolBaseUri.replace('https://', '').replace('http://', '')
         const auth = new CognitoAuth({
@@ -65,11 +66,12 @@ class Login extends Component{
                 let targetUri = window.localStorage.getItem('targetUri');
                 let callback = window.localStorage.getItem('callback');
                 let params = window.localStorage.getItem('params');
-                if (targetUri !== 'undefined'){
-                    console.log(`pushing ${targetUri}?callback=${callback}&params=${params}`)
-                    _me.props.history.push(`${targetUri}?callback=${callback}&params=${params}`);
+
+                if (targetUri && targetUri !== 'null'){
+                    console.log(`pushing ${new URL(targetUri).pathname}?callback=${callback}&params=${params}`)
+                    _me.props.history.push(`${new URL(targetUri).pathname}?callback=${callback}&params=${params}`);
                 }else{
-                    return <Redirect to="/" />
+                    _me.props.history.push(`/`);
                 }
                 //go back to whatever page you came from and do whatever you were doing
             },
@@ -82,7 +84,6 @@ class Login extends Component{
             console.log("INITIALIZING SESSION")
             console.log("session: ", this.props.session)
             auth.getSession();
-            return <Redirect to="/" />
         }else if (this.props.location.hash){
             console.log("CHECKING SESSION")
 
@@ -91,10 +92,9 @@ class Login extends Component{
             auth.parseCognitoWebResponse(curUrl)
         }
         return (
-            <div className="transition-item login-page">
-                <div>This is the login page</div>
-            </div>
+            <div className="transition-item login-page"/>
         );
+
    }
 }
 
