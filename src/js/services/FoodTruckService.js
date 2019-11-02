@@ -5,10 +5,7 @@ export default class FoodTruckService {
     constructor(){
         this.abortController = new AbortController();
     }
-    componentWillUnmount() {
-        console.log('unmounting')
-        this.abortController.abort();
-    }
+
     getAllFoodTrucks(){
         return fetch(`${config.api_base}/`, {signal:this.abortController.signal})
             .then(res => {

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import PageTransition from "react-router-page-transition";
 
 import FoodTruckList from "./components/food-truck-list/food-truck-list";
@@ -9,6 +9,7 @@ import FoodTruckService from "./services/FoodTruckService";
 import FoodTruckReviews from "./components/food-truck-reviews/food-truck-reviews";
 import FoodItemReviews from "./components/food-truck-detail/food-truck-food-item/food-item-reviews/food-item-reviews";
 import Callback from "./components/callback/callback"
+import Login from "./components/login/login"
 
 class App extends Component {
   constructor(props) {
@@ -88,21 +89,22 @@ class App extends Component {
 
       let _me = this;
     return (
-      <Router >
+      <BrowserRouter >
         <Route
           render={({ location }) => (
             <PageTransition timeout={500}>
               <Switch location={location}>
-                  <Route exact path="/" render={_me.ListRenderFunc.bind(_me)}/>
                   <Route  path="/food-trucks/:foodTruckName/food/:foodItemId/reviews" render={_me.FoodItemReviewRenderFunc.bind(_me)} />
                   <Route  path="/food-trucks/:foodTruckName/reviews" render={_me.TruckReviewRenderFunc.bind(_me)} />
                   <Route  path="/food-trucks/:foodTruckName" render={_me.TruckRenderFunc.bind(_me)} />
+                  <Route  path="/login"  component={Login}/>
                   <Route exact path="/callback" component={Callback}/>
+                  <Route  path="/" render={_me.ListRenderFunc.bind(_me)}/>
               </Switch>
             </PageTransition>
           )}
         />
-      </Router>
+      </BrowserRouter>
     );
   }
 }

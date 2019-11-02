@@ -51,6 +51,7 @@ const parseCognitoWebResponse = (href) => {
                 reject(new Error('Failure parsing Cognito web response: ' + err))
             }
         }
+        console.log('href: ', href)
         auth.parseCognitoWebResponse(href)
     })
 }

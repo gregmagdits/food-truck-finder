@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import "./food-truck-reviews.scss"
 import FoodTruckService from "../../services/FoodTruckService";
 import {connect} from 'react-redux'
+import appConfig from "../../config";
+import CognitoService from "../../services/CognitoService";
 
 function mapStateToProps (state) {
     return { session: state.session }
@@ -21,7 +23,12 @@ class FoodTruckReviews extends Component{
         }
         console.log("foodTruck: ", this.state.foodTruck)
         this.service = new FoodTruckService();
+        if (window.location.search.indexOf('callback') > 0){
+            var urlParams = new URLSearchParams(window.location.search);
+            this[urlParams.get('callback')].apply(urlParams.getAll('params'))
+        }
     }
+
     render(){
         if (!this.state.foodTruck){
             return <div>Loading....</div>
@@ -66,8 +73,11 @@ class FoodTruckReviews extends Component{
     leaveReview(e){
         e.preventDefault();
         if (!this.props.session.isLoggedIn){
-
-            ;
+            //new CognitoService().login(`${window.location.href}`, 'leaveReview', [])
+            this.props.history.push({
+               pathname: `/login`,
+                search: `?targetUri=${window.location.href}&callback=leaveReview&params=[]`,
+            });
         }else{
             this.service.leaveFoodTruckReview(/*user, truck, rating, review*/).then((result,error) => {
                 console.log('returned from service;')

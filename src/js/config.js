@@ -4,7 +4,7 @@ const config = {
     "userPool": "us-east-1_MoQZph5Gu",
     "userPoolBaseUri": "https://food-truck-finder.auth.us-east-1.amazoncognito.com",
     "clientId": "6grerrv1pj4k3pv8a4fkrqagcn",
-    "callbackUri": "http://localhost:3000/",
+    "callbackUri": "http://localhost:3000/login",
     "signoutUri": "http://localhost:3000",
     "tokenScopes": [
         "openid",
