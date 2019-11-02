@@ -23,7 +23,7 @@ class FoodTruckList extends Component {
   }
   render() {
     let listItems = this.props.foodTruckArray.map((truck, index) => {
-      return (<FoodTruckListItem index={index} foodTruck={truck} />)
+      return (<FoodTruckListItem key={truck.name} index={index} foodTruck={truck} />)
     });
 
     return (

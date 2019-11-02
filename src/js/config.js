@@ -10,7 +10,6 @@ const config = {
         "openid",
         "email",
         "profile"
-    ],
-    "apiUri": "http://cognito-demo-api.arronharden.com"
+    ]
 }
 export default config;
