@@ -1,5 +1,6 @@
 const config = {
-    api_base : 'http://3.229.202.80:8080',
+    //api_base : 'http://3.229.202.80:8080',
+    api_base : 'http://localhost:8080',
     "region": "us-east-1",
     "userPool": "us-east-1_MoQZph5Gu",
     "userPoolBaseUri": "https://food-truck-finder.auth.us-east-1.amazoncognito.com",

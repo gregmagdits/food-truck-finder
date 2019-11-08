@@ -67,13 +67,13 @@ class Login extends Component{
                 let callback = window.localStorage.getItem('callback');
                 let params = window.localStorage.getItem('params');
 
+                //go back to whatever page you came from and do whatever you were doing
                 if (targetUri && targetUri !== 'null'){
                     console.log(`pushing ${new URL(targetUri).pathname}?callback=${callback}&params=${params}`)
                     _me.props.history.push(`${new URL(targetUri).pathname}?callback=${callback}&params=${params}`);
                 }else{
                     _me.props.history.push(`/`);
                 }
-                //go back to whatever page you came from and do whatever you were doing
             },
             onFailure: function (err) {
                 console.log('error is: ', err)
@@ -94,7 +94,6 @@ class Login extends Component{
         return (
             <div className="transition-item login-page"/>
         );
-
    }
 }
 

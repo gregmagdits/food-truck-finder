@@ -28,8 +28,8 @@ export default class FoodTruckService {
             })
     }
 
-    leaveFoodTruckReview(user, truck, rating, review){
-        return fetch(`${config.api_base}/food-trucks/${truck.name}/reviews`,
+    leaveFoodTruckReview(user, jwt, truck, rating, review){
+        return fetch(`${config.api_base}/food-trucks/${truck.name}/reviews/`,
     {
           method: 'POST',
           // not sure if we need the string
@@ -38,8 +38,11 @@ export default class FoodTruckService {
               review: review
           }),
           headers: {
-            'Content-Type': 'application/json'
-          }
+            'Content-Type': 'application/json',
+              'Authorization' : `Bearer ${jwt}`
+          },
+           mode: 'cors', // no-cors, *cors, same-origin
+          credentials: 'include'
         }).then(res => {
             return res.json();
         })

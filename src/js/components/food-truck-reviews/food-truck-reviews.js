@@ -7,11 +7,6 @@ import appConfig from "../../config";
 function mapStateToProps (state) {
     return { session: state.session }
 }
-// function mapDispatchToProps (dispatch) {
-//     return {
-//         dispatchSession: session => dispatch(dispatchSession(session))
-//     }
-// }
 
 class FoodTruckReviews extends Component{
 
@@ -81,7 +76,7 @@ class FoodTruckReviews extends Component{
                 search: `?targetUri=${window.location.href}&callback=leaveReview&params=[]`,
             });
         }else{
-            this.service.leaveFoodTruckReview(/*user, truck, rating, review*/).then((result,error) => {
+            this.service.leaveFoodTruckReview(this.props.session.user, this.props.session.credentials.idToken, this.state.foodTruck, 5, 'review').then((result,error) => {
                 console.log('returned from service;')
             })
         }
