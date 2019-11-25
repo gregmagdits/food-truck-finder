@@ -33,6 +33,7 @@ class FoodTruckReviews extends Component{
     }
 
     render(){
+        console.log('state is ' ,this.state.foodTruck)
         if (!this.state.foodTruck){
             return <div>Loading....</div>
         }
@@ -50,8 +51,14 @@ class FoodTruckReviews extends Component{
 
         return (
             <div className="transition-item review-page">
-                <ReactModal isOpen={_me.state.modal.modalIsOpen} ariaHideApp={false} contentLabel="Minimal Modal Example"   overlayClassName="ReactModal__Overlay">
-                    <p className="modalcontent"> {_me.state.modal.content} </p>
+                <ReactModal isOpen={_me.state.modal.modalIsOpen}
+                            ariaHideApp={false}
+                            contentLabel="Minimal Modal Example"
+                            overlayClassName="ReactModal__Overlay"
+                            shouldCloseOnOverlayClick={true}>
+                     {/*<p className="modalcontent"> {_me.state.modal.content} </p>*/}
+                    {_me.state.modal.content}
+                    <button onClick={()=> _me.setState({ modal: { modalIsOpen: false}})}>Close Modal</button>
                 </ReactModal>
                 <div>
                     <div className="food-truck-information">
@@ -71,7 +78,7 @@ class FoodTruckReviews extends Component{
                             <option value="5">5</option>
                         </select>
 
-                        <submit id="submit-review" className="button"  onClick={this.leaveReview.bind(this)}>submit</submit>
+                        <button id="submit-review" className="btn btn-success"  onClick={this.leaveReview.bind(this)}>submit</button>
                     </form>
                 </div>
 
@@ -103,17 +110,38 @@ class FoodTruckReviews extends Component{
             // either we were previously logged in, or this is invoked by callback
 
             this.service.leaveFoodTruckReview(this.props.session.user, this.props.session.credentials.idToken, this.state.foodTruck, rating, review).then((result,error) => {
-                console.log('returned from service ', result)
-                document.getElementById('rating').value = '';
-                document.getElementById('review').value = '';
+                if (result.error){
+                    console.log('returned from service ', result)
+                    document.getElementById('rating').value = '';
+                    document.getElementById('review').value = '';
 
-                _me.setState({
-                    foodTruck: result,
-                    modal : {
-                        modalIsOpen: true,
-                        content: `Successfully submitted review`
-                    }
-                })
+                    let errorItems = result.errors.map((error) =>
+                        <li>{error.defaultMessage}</li>
+                    );
+                    let errors = (
+                        <ul>
+                            The following errors were generated during the request:
+                            {errorItems}
+                        </ul>
+                    );
+                    _me.setState({
+                        modal : {
+                            modalIsOpen: true,
+                            content: errors
+                        }
+                    })
+                }else {
+                    console.log('returned from service ', result)
+                    document.getElementById('rating').value = '';
+                    document.getElementById('review').value = '';
+
+                    _me.setState({
+                        foodTruck: result,
+                        modal : {
+                            modalIsOpen: true,
+                            content: `Successfully submitted review`
+                        }
+                    })
             })
         }
     }
