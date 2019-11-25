@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import "./food-truck-reviews.scss"
 import FoodTruckService from "../../services/FoodTruckService";
 import {connect} from 'react-redux'
-import appConfig from "../../config";
+import ReactModal from 'react-modal';
+import Modal from 'react-modal';
 
 function mapStateToProps (state) {
     return { session: state.session }
@@ -13,14 +14,22 @@ class FoodTruckReviews extends Component{
     constructor(props){
         super(props)
         this.state = {
-            foodTruck : props.foodTruck
+            foodTruck : props.foodTruck,
+            review: '',
+            rating: '',
+            modal : {
+                modalIsOpen: false,
+                content : ''
+            }
         }
         console.log("foodTruck: ", this.state.foodTruck)
         this.service = new FoodTruckService();
-        if (window.location.search.indexOf('callback') > 0){
-            var urlParams = new URLSearchParams(window.location.search);
-            this[urlParams.get('callback')].bind(this).apply(urlParams.getAll('params'))
-        }
+
+        // set state here from url params
+        // if (window.location.search.indexOf('callback') > 0){
+        //     var urlParams = new URLSearchParams(window.location.search);
+        //     this[urlParams.get('callback')].bind(this).apply(urlParams.getAll('params'))
+        // }
     }
 
     render(){
@@ -32,29 +41,41 @@ class FoodTruckReviews extends Component{
             return (
                 <div className="food-truck-review-container">
                     <div className="rating-container">
-                        rating: {review.rating}
-                    </div>
-                    <div className="review-container">
-                        {review.review}
+                        rating: [{review.rating}] {review.review}
                     </div>
                 </div>
             );
         });
+        let _me = this;
 
         return (
             <div className="transition-item review-page">
-                <div className="food-truck-information">
-                    {this.state.foodTruck.name}
-                    <button onClick={this.goBack.bind(this)}>go back</button>
+                <ReactModal isOpen={_me.state.modal.modalIsOpen} ariaHideApp={false} contentLabel="Minimal Modal Example"   overlayClassName="ReactModal__Overlay">
+                    <p className="modalcontent"> {_me.state.modal.content} </p>
+                </ReactModal>
+                <div>
+                    <div className="food-truck-information">
+                        {this.state.foodTruck.name}
+                        <button onClick={this.goBack.bind(this)}>go back</button>
+                    </div>
+                    <div className="food-truck-reviews-container">
+                        {reviews}
+                    </div>
+                    <form action="" id="review-form">
+                        <textarea name="" id="review" cols="30" rows="10"/>
+                        <select id={"rating"}>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                        </select>
+
+                        <submit id="submit-review" className="button"  onClick={this.leaveReview.bind(this)}>submit</submit>
+                    </form>
                 </div>
-                <div id="leaveReview">
-                    <button onClick={this.leaveReview.bind(this)}>
-                        leaveReview
-                    </button>
-                </div>
-                <div className="food-truck-reviews-container">
-                    {reviews}
-                </div>
+
+
             </div>
         );
     }
@@ -65,19 +86,34 @@ class FoodTruckReviews extends Component{
     }
 
     leaveReview(e){
+        let _me = this;
         if (e){
             e.preventDefault();
         }
+        let rating = document.getElementById('rating').value;
+        let review = document.getElementById('review').value;
+        let foodTruck = this.state.foodTruck;
 
         if (!this.props.session.isLoggedIn){
-            //new CognitoService().login(`${window.location.href}`, 'leaveReview', [])
             this.props.history.push({
                pathname: `/login`,
-                search: `?targetUri=${window.location.href}&callback=leaveReview&params=[]`,
+                search: `?targetUri=${window.location.href}&callback=leaveReview&rating=${rating}&review=${review}`,
             });
         }else{
-            this.service.leaveFoodTruckReview(this.props.session.user, this.props.session.credentials.idToken, this.state.foodTruck, 5, 'review').then((result,error) => {
-                console.log('returned from service;')
+            // either we were previously logged in, or this is invoked by callback
+
+            this.service.leaveFoodTruckReview(this.props.session.user, this.props.session.credentials.idToken, this.state.foodTruck, rating, review).then((result,error) => {
+                console.log('returned from service ', result)
+                document.getElementById('rating').value = '';
+                document.getElementById('review').value = '';
+
+                _me.setState({
+                    foodTruck: result,
+                    modal : {
+                        modalIsOpen: true,
+                        content: `Successfully submitted review`
+                    }
+                })
             })
         }
     }

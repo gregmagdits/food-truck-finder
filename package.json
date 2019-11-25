@@ -15,6 +15,7 @@
     "randomcolor": "^0.5.4",
     "react": "^16.10.0",
     "react-dom": "^16.10.2",
+    "react-modal": "^3.11.1",
     "react-router-dom": "^5.1.2",
     "react-router-page-transition": "^3.1.0",
     "react-scripts": "3.1.2",
