@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@aws-amplify/cli": "^3.11.0",
+    "@aws-amplify/cli": "^11.1.1",
     "aws-amplify": "^1.1.40",
     "dynamodb-geo": "^0.4.0",
     "google-map-react": "^1.1.5",
